@@ -4,87 +4,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Portafolio Digital</title>
-    <link href="css/Estilos.css" rel="stylesheet" type="text/css">
+    <title>Bienvenido al juego de numero secreto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
 
+        .container {
+            background: rgb(222, 106, 162);
+            padding: 20px;
+            border-radius: 40px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #f8f3f3;
+        }
+
+        h2 {
+            color: #f4f4f4;
+        }
+
+
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            border: 2px solid #1e1d1d;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #f3f5f7;
+            color: rgb(28, 26, 26);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        a {
+            display: block;
+            margin-top: 10px;
+            color: #070707;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                margin: 20px;
+            }
+
+            input,
+            button {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <div class="container">
+        <h1>Bienvenido A</h1>
+        <h2>Juego del Numero Secreto</h2>
+        <p>Introduce un número entre 1 y 10:</p>
+        <div><img src="imagenes/Diseño sin título-3.png" width="500px"></div>
+        <input type="number" id="userInput" min="1" max="10">
+        <button onclick="verificarNumero()">Intentar</button>
+        <button onclick="nuevoJuego()">Nuevo Juego</button>
+        <p id="mensaje"></p>
+        <p id="intentos"></p>
+        <a href="index.html">Volver al inicio</a>
+    </div>
 
-    <header>
-        <div class="container">
-            <h1>Hola soy <span>Liam Enmanuel Lopez Guilamo</span></h1>
-            <img src="imagenes/wd.jpg" width="300px">
-            <p>Estudiante de Ingenieria en Sistema</p>
-        </div>
-    </header>
-    <section id="sobre-mi">
-        <div class="container">
-            <h2>Sobre mí</h2>
-            <p>Soy un estudiante de ingenieria en sistema y estoy empeñado en dar lo mejor de mi en esta carrera y poder
-                llegar lejos en esta rama de la ingenieria que seria en la creacion de paginas web.</p>
-            <p>Me encanta aprender y explorar nuevas tecnologías ya que es necesario para ir a la par con el mundo que
-                esta en constante crecimiento. </p>
-        </div>
-    </section>
-    <section id="proyectos">
-        <div class="container">
-            <h2>Mis Proyectos</h2>
-            <img src="imagenes/java.png" width="250px">
-            <div class="proyecto">
+    <script>
+        let numeroSecreto = Math.floor(Math.random() * 10) + 1;
+        let intentos = 0;
 
-                <div class="descripcion">
-                    <h3>Proyecto 1</h3>
-                    <p>Descripción breve del proyecto 1. Aquí se utilizo el lenguaje java para la creacion de un
-                        proyecto en el cual.</p>
-                    <p>leer un numera de dos digitos y determinar a cuanto es igual la suma de
-                        todos sus digitos.</p>
-                    <img src="imagenes/ejercicio java1.png" width="300px">
-                </div>
-            </div>
-            <div class="proyecto">
+        function verificarNumero() {
+            let input = document.getElementById("userInput");
+            let numeroUsuario = parseInt(input.value);
+            let mensaje = document.getElementById("mensaje");
+            let intentosMensaje = document.getElementById("intentos");
 
-                <div class="descripcion">
-                    <h3>Proyecto 2</h3>
-                    <p>Descripción breve del proyecto 2. Aquí se explica el objetivo y el lenguaje utilizado que es java
-                    </p>
-                    <img src="imagenes/ejercicios java2.png" width="300px">
-                </div>
-            </div>
+            if (isNaN(numeroUsuario)) {
+                alert("Por favor, ingresa un número.");
+                return;
+            }
 
-        </div>
-    </section>
-    <section id="habilidades">
-        <div class="container">
-            <h2>Mis Habilidades</h2>
-            <ul>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-                <li>Java</li>
-                <li>Python</li>
+            intentos++;
 
-            </ul>
-        </div>
-    </section>
+            if (numeroUsuario < numeroSecreto) {
+                mensaje.textContent = "El número secreto es mayor.";
+            } else if (numeroUsuario > numeroSecreto) {
+                mensaje.textContent = "El número secreto es menor.";
+            } else {
+                mensaje.textContent = `¡Felicidades! Adivinaste el número en ${intentos} intento(s).`;
+            }
 
+            intentosMensaje.textContent = `Intentos: ${intentos}`;
+            input.value = "";
+        }
 
-    <section id="contacto">
-        <div class="container">
-            <h2>Contacto</h2>
-            <p>Si deseas ponerte en contacto conmigo, no dudes en enviarme un correo electrónico:</p>
-            <a href="mailto:liamguilamo809@gmail.com" class="gmail">liamguilamo809@gmail.com</a>
-        </div>
-    </section>
-
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Liam Guilamo. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
+        function nuevoJuego() {
+            numeroSecreto = Math.floor(Math.random() * 10) + 1;
+            intentos = 0;
+            document.getElementById("mensaje").textContent = "";
+            document.getElementById("intentos").textContent = "";
+            document.getElementById("userInput").value = "";
+        }
+    </script>
 </body>
 
 </html>
